@@ -1,0 +1,21 @@
+* { 
+    box-sizing: border-box;
+}
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+[data-provide=chat] {
+    position: fixed;
+    background-color: #000;
+    height: 32px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+}
