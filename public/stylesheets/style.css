@@ -13,6 +13,7 @@ a {
 [data-provide=chat] {
     position: fixed;
     background-color: #000;
+    color: #fff;
     height: 32px;
     left: 0px;
     right: 0px;

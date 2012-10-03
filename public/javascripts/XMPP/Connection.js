@@ -1,7 +1,8 @@
-define(['backbone', 'underscore', 'strophe'], function(Backbone, _, _strophe) {
+define(['backbone', 'underscore', 'strophe', 'javascripts/XMPP/Conversation'], function(Backbone, _, _strophe, Conversation) {
     /*globals Strophe:false $pres:false */
     "use strict";
-    var Connection = function Connection() {
+    var Connection = function Connection(options) {
+        this.conversations = {};
         this.initialize.apply(this, arguments);
     };
 
@@ -11,12 +12,17 @@ define(['backbone', 'underscore', 'strophe'], function(Backbone, _, _strophe) {
         },
 
         login: function(jid, password) {
-            this.connection = new Strophe.Connection("/http-bind");
-            this.connection.connect(jid, password, this._handleConnection);
+            this.xmpp = new Strophe.Connection("/http-bind");
+            this.xmpp.connect(jid, password, this._handleConnection);
         },
 
         _handleMessage: function handleMessage (message) {
             this.trigger('message message:'+message.getAttribute('type'), message);
+            var from = message.getAttribute('from');
+            if (!this.conversations[from]) {
+                this.conversations[from] = new Conversation({connection: this, jid: from});
+                this.trigger('conversation', this.conversations[from]);
+            }
             return true;
         },
 
@@ -24,8 +30,8 @@ define(['backbone', 'underscore', 'strophe'], function(Backbone, _, _strophe) {
             this.trigger('status', status);
             if (status === Strophe.Status.CONNECTED) {
                 this.trigger('connected');
-                this.connection.addHandler(this._handleMessage, null, "message");
-                this.connection.send($pres());
+                this.xmpp.addHandler(this._handleMessage, null, "message");
+                this.xmpp.send($pres());
             } else if (status === Strophe.Status.DISCONNECTED) {
                 this.trigger('disconnected');
             }
