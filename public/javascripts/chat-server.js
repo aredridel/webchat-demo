@@ -19,28 +19,22 @@ require(['backbone', 'underscore', 'jquery', "strophe", 'javascripts/XMPP/Connec
     var Conversation = Backbone.View.extend({
         initialize: function() {
              this.conversation = this.options.conversation; 
+             this.conversation.on('message', this.handleMessage, this);
         },
         render: function () {
             this.$el.addClass('conversation');
             this.$el.append("<div>" + this.conversation.jid + "</div>");
-            console.log(this);
             return this.$el;
+        },
+        handleMessage: function (message) {
+            var el = $('<div>');
+            el.text($(message).find('body').text());
+            this.$el.append(el);
         }
     });
 
     var conn = new Connection();
     var chatBar = new ChatBar({el: $('[data-provide=chat]'), connection: conn});
     conn.login('test@localhost/strophe', 'test');
-    conn.on('connected', function() {
-        console.log('connected');
-    });
-    conn.on('disconnected', function() {
-        console.log('disconnected');
-    });
-    conn.on('message:chat', function(message) {
-        console.log(message);
-    });
-
-
 
 });

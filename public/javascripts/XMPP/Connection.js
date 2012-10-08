@@ -17,12 +17,12 @@ define(['backbone', 'underscore', 'strophe', 'javascripts/XMPP/Conversation'], f
         },
 
         _handleMessage: function handleMessage (message) {
-            this.trigger('message message:'+message.getAttribute('type'), message);
             var from = message.getAttribute('from');
             if (!this.conversations[from]) {
                 this.conversations[from] = new Conversation({connection: this, jid: from});
                 this.trigger('conversation', this.conversations[from]);
             }
+            this.trigger('message message:'+message.getAttribute('type') + ' message(' + message.getAttribute('from') + ')', message);
             return true;
         },
 
