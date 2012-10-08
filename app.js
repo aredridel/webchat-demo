@@ -8,10 +8,18 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     bosh = require('bosh'),
-    ejslocals = require('ejs-locals');
+    ejslocals = require('ejs-locals'),
+    stylus = require('stylus');
 
 
 var app = express();
+
+function compile(str, path) {
+    return stylus(str)
+    .set('filename', path)
+    .set('warn', true)
+    .set('compress', true);
+}
 
 app.configure(function(){
   app.set('port', process.env.PORT || 5280);
@@ -23,6 +31,11 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
+  app.use(stylus.middleware({
+      src: __dirname + '/style',
+      dest: __dirname + '/public',
+      compile: compile
+  }));
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
