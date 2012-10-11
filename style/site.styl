@@ -1,6 +1,7 @@
 * { 
     box-sizing: border-box;
 }
+
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -19,10 +20,17 @@ a {
     right: 0px;
     bottom: 0px;
     width: 100%;
+    .conversation {
+        background-color: black;
+        position: fixed;
+        bottom: 0;
+        .me {
+            color: #69e;
+        }
+
+        input {
+            width: 100%;
+        }
+    }
 }
 
-[data-provide=chat] .conversation {
-    background-color: black;
-    position: absolute;
-    bottom: 0;
-}

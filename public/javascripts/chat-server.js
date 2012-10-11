@@ -24,12 +24,25 @@ require(['backbone', 'underscore', 'jquery', "strophe", 'javascripts/XMPP/Connec
         render: function () {
             this.$el.addClass('conversation');
             this.$el.append("<div>" + this.conversation.jid + "</div>");
+            this.$el.append('<input type=text>');
             return this.$el;
         },
         handleMessage: function (message) {
             var el = $('<div>');
+            if (message.getAttribute('to') == this.conversation.jid) {
+                el.addClass('me');
+            }
             el.text($(message).find('body').text());
-            this.$el.append(el);
+            this.$('input').before(el);
+        },
+        events: {
+            'keypress input': function(ev) {
+                var $target = $(ev.target);
+                if (ev.keyCode != 13 || !$target.val()) return;
+
+                this.conversation.send($target.val());
+                $target.val('');
+            }
         }
     });
 

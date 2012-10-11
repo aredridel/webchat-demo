@@ -1,5 +1,6 @@
 define(['backbone', 'underscore'], function(Backbone, _) {
     /*jshint browser:true */
+    /*global $msg:false */
     "use strict";
     var Conversation = function Conversation(options) {
         _.bindAll(this);
@@ -22,6 +23,12 @@ define(['backbone', 'underscore'], function(Backbone, _) {
 
         _handleDisconnect: function () {
             this.trigger('disconnected');
+        },
+        
+        send: function(message) {
+            var m = $msg({type: 'chat', to: this.jid}).c('body').t(message);
+            this.trigger('message', m.tree());
+            this.connection.xmpp.send(m);
         }
     });
 
