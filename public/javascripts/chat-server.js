@@ -23,7 +23,8 @@ require(['backbone', 'underscore', 'jquery', "strophe", 'javascripts/XMPP/Connec
         },
         render: function () {
             this.$el.addClass('conversation');
-            this.$el.append("<div>" + this.conversation.jid + "</div>");
+            this.$el.append("<div class='title'>" + this.conversation.jid + "</div>");
+            this.$el.append("<div class='inner'><div class='chat'></div></div>");
             this.$el.append('<input type=text>');
             return this.$el;
         },
@@ -33,7 +34,7 @@ require(['backbone', 'underscore', 'jquery', "strophe", 'javascripts/XMPP/Connec
                 el.addClass('me');
             }
             el.text($(message).find('body').text());
-            this.$('input').before(el);
+            this.$('.chat').append(el);
         },
         events: {
             'keypress input': function(ev) {
