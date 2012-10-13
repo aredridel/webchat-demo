@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'strophe', 'javascripts/XMPP/Conversation'], function(Backbone, _, _strophe, Conversation) {
+define(['backbone', 'underscore', 'strophe', 'XMPP/Conversation', 'XMPP/Presence'], function(Backbone, _, _strophe, Conversation, Presence) {
     /*globals Strophe:false $pres:false */
     "use strict";
     var Connection = function Connection(options) {
@@ -31,10 +31,16 @@ define(['backbone', 'underscore', 'strophe', 'javascripts/XMPP/Conversation'], f
             if (status === Strophe.Status.CONNECTED) {
                 this.trigger('connected');
                 this.xmpp.addHandler(this._handleMessage, null, "message");
+                this.xmpp.addHandler(this._handlePresence, null, "presence");
                 this.xmpp.send($pres());
             } else if (status === Strophe.Status.DISCONNECTED) {
                 this.trigger('disconnected');
             }
+        },
+
+        _handlePresence: function handlePresence(el) {
+            var presence = new Presence({el: el, connection: this});
+            this.trigger("presence presence:" +presence.type, presence);
         }
 
     });

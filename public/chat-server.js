@@ -1,4 +1,4 @@
-require(['backbone', 'underscore', 'jquery', "strophe", 'javascripts/XMPP/Connection'], function(Backbone, _, $, _strophe, Connection) {
+require(['backbone', 'underscore', 'jquery', "strophe", 'XMPP/Connection'], function(Backbone, _, $, _strophe, Connection) {
     /*jshint browser:true*/
     /*global Strophe:false, $pres:false, console:false */
     "use strict";
@@ -49,6 +49,9 @@ require(['backbone', 'underscore', 'jquery', "strophe", 'javascripts/XMPP/Connec
 
     var conn = new Connection();
     var chatBar = new ChatBar({el: $('[data-provide=chat]'), connection: conn});
-    conn.login('test@localhost/strophe', 'test');
+    conn.on('presence:subscribe', function(pres) {
+        console.log(pres);
+    });
+    conn.login('test@localhost/' + Math.random(), 'test');
 
 });

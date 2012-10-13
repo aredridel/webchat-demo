@@ -3,12 +3,11 @@ define(['backbone', 'underscore'], function(Backbone, _) {
     /*global $msg:false */
     "use strict";
     var Conversation = function Conversation(options) {
-        _.bindAll(this);
         this.options = options || {};
         this.connection = this.options.connection;
         this.jid = this.options.jid;
-        this.connection.on('message(' + options.jid + ')', this._handleMessage);
-        this.connection.on('disconnected', this._handleDisconnect);
+        this.connection.on('message(' + options.jid + ')', this._handleMessage, this);
+        this.connection.on('disconnected', this._handleDisconnect, this);
         this.initialize.apply(this, arguments);
     };
 
