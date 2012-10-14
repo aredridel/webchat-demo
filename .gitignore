@@ -1,3 +1,4 @@
 public/vendor
+public/site.css
 *.swp
 node_modules
