@@ -1,0 +1,15 @@
+<div class='modal'>
+    <div class='modal-header'>
+    </div>
+
+    <div class='modal-body'>
+        <p><%- presence.from %> would like to add you.</p>
+    </div>
+
+    <div class='modal-footer'>
+        <a class='btn' data-command='subscribe'>Allow</a>
+        <a class='btn' data-command='subscribe-add'>Allow &amp; Add</a>
+        <a class='btn' data-command='ignore'>Ignore</a>
+        <a class='btn' data-command='deny'>Deny</a>
+    </div>
+</div>
