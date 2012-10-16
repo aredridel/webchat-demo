@@ -13,6 +13,9 @@ define(['backbone'], function(Backbone) {
                 }
             }
         },
+        close: function() {
+            this.$el.remove();
+        },
         commands: {
         },
         templateData: function() {
