@@ -29,6 +29,7 @@ define(['backbone', 'underscore', 'jquery', 'strophe', 'XMPP/Conversation', 'XMP
                 this.conversations[from] = new Conversation({connection: this, jid: from});
                 this.trigger('conversation', this.conversations[from]);
             }
+            this.conversations[from].trigger('activity');
             return this.conversations[from];
         },
 
