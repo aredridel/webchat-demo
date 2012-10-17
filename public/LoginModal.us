@@ -1,0 +1,16 @@
+<div class='modal'>
+    <div class='modal-header'>
+        <h2>Login</h2>
+    </div>
+    <div class='modal-body'>
+        <label for='jid'>JID</label>
+        <input id='jid' name='jid'>
+
+        <label for='password'>Password</label>
+        <input id='password' name='password'>
+    </div>
+
+    <div class='modal-footer'>
+        <button class='btn'>Log In</button>
+    </div>
+</div>
