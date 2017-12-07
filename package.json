@@ -6,11 +6,11 @@
   },
   "main": "app.js",
   "dependencies": {
+    "bosh": "0.0.4",
+    "ejs": "^2.5.7",
+    "ejs-locals": "~0.2.5",
     "express": "3.0.0rc4",
     "jade": "*",
-    "bosh": "0.0.4",
-    "ejs": "~0.8.3",
-    "ejs-locals": "~0.2.5",
     "stylus": "~0.29.0"
   },
   "jam": {
