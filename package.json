@@ -9,7 +9,7 @@
     "bosh": "0.0.4",
     "ejs": "^2.5.7",
     "ejs-locals": "~0.2.5",
-    "express": "3.0.0rc4",
+    "express": "^3.21.2",
     "jade": "*",
     "stylus": "~0.29.0"
   },
